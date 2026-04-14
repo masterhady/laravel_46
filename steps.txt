@@ -1,0 +1,26 @@
+1- php >= 8.3 --> laravel v13  --> php -v 
+
+
+2- install composer --> https://getcomposer.org/ --> composer -V 
+
+3- install laravel : 
+        1- composer global require laravel/installer
+           laravel new NAMEPROJECT 
+        
+        2- composer create-project laravel/laravel NAMEPROJECT
+
+----> cd NAMEPROJECT 
+    1- php artisan --> to know all commands line 
+    2- php artisan serve  --> run the app 
+    3- php artisan serve --help 
+    4- php artisan serve --port=9000 
+    5- .env --> DB_connection = mysql 
+    6- create database in mysql 
+    7- php artisan migrate  
+    
+
+
+    _______________________________________
+
+
+    controller --> PostController
