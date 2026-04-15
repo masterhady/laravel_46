@@ -10,11 +10,13 @@
 <body>
     @yield('navbar')
     
+    <div class="container">
     <h1 class="text-center text-primary"> @yield("pageTitle") </h1>
 
     @yield('part1')
 
     @yield('body')
+    </div>
 
 
 

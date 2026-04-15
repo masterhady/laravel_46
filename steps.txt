@@ -21,6 +21,27 @@
 
 
     _______________________________________
+Naming Conventions:
+
+https://github.com/alexeymezenin/laravel-best-practices#follow-laravel-naming-conventions
 
 
     controller --> PostController
+
+
+    https://laravel.com/docs/13.x/migrations#columns
+
+
+1- php artisan make:migration create_posts_table --> create the file 
+2- php artisan migrate  --> implemnt into database 
+3- php artisan migrate:status --> 
+3- php artisan migrate:refresh --> rollback all migratiins and migrate 
+3- php artisan migrate:rollback --> rollback the last batch 
+
+--> create my model --> represnet table 
+
+-->    create database structre --> php --> quries --> Migrations files 
+
+--> deal with database --> Model --> for each table 
+
+model --> singular --> represnet --> one Record 

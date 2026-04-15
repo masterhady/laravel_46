@@ -17,13 +17,14 @@
 
 @section('body')
     {{-- @dump($myposts) --}}
+    <a class="btn btn-primary" href="/posts/create"> Create Post </a> 
     <table class="table table-striped">
         <tr>
             <th>Title</th>
             <th>Content</th>
             <th>Actions</th>
         </tr>
-        
+
             @foreach ($myposts as $key => $value )
             <tr> 
                 <td>{{$loop->iteration}}</td>

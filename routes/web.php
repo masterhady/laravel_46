@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\BookController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -12,40 +14,17 @@ Route::get("/iti", function(){
 });
 
 Route::get("/posts", [PostController::class, "index"]);
-
-// Route::get("/posts", function(){
-//     $myposts = [
-//         ["title" => "I am Post 1", "body" => "I am body 1"],
-//         ["title" => "I am Post 2", "body" => "I am body 2"],
-//         ["title" => "I am Post 3", "body" => "I am body 3"],
-
-//     ];
-//     // compact 
-//     return view("Posts.posts", compact("myposts"));
-    // return view("Posts.posts", ["posts" => $posts]);
-    // dump($posts);
-    // dd($posts); // dump and die
-    // return "Hello Laravel";
-    // var_dump($posts);
-// });
-
+Route::get("/posts/create",[PostController::class, "create"]);
 Route::get("/posts/{post}", [PostController::class, "show"]);
-
-Route::get("/request", function(){
-    $serchParams = request()->all();
-    dd($serchParams);
-});
-
-Route::get("/home", function(){
-    $name = "Ahmed";
-    $email = "ahmed@it.com";
-    return view("home", ["username" => $name, "useremail"  => $email]);
-});
-
-Route::get("/names", function(){
-    $names = ["ahmed", "mohamed", "ali"];
-    return view("home", ["users" => $names]);
-});
+Route::post("/posts",[PostController::class, "store"] );
 
 
+Route::get("/books", [BookController::class, "index"]);
+Route::get("/books/create", [BookController::class, "create"]);
+Route::get("/books/edit/{id}", [BookController::class, "edit"]);
+Route::put("/books/{id}", [BookController::class, "update"]);
+Route::post("/books", [BookController::class, "store"]);
+Route::delete("/books/{id}", [BookController::class, "store"]);
 
+
+Route::get("/books/{id}", [BookController::class, "show"]);
