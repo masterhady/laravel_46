@@ -22,6 +22,8 @@
         <tr>
             <th>Title</th>
             <th>Content</th>
+            <th>Category</th>
+            <th>Author</th>
             <th>Show</th>
             <th>Edit</th>
         </tr>
@@ -33,6 +35,15 @@
                 {{-- <td>{{ $value["title"] }}</td>  --}}
                 <td>{{ $value->title }}</td> 
                 <td>{{ $value->content }}</td> 
+                <td>
+                <td>
+                <a href={{ route('categories.show', $value->category->id) }}> 
+                    {{ $value->category->name }}
+                </a>
+                <td>
+                    {{$value->user->name}}
+                </td>
+
                 <td><a href="/books/{{$value->id}}" class="btn btn-info"> Show </a></td>
                 <td><a href="/books/edit/{{$value->id}}" class="btn btn-warning"> Edit </a></td>
             

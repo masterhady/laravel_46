@@ -32,8 +32,12 @@
         <label for="exampleInputPassword1" class="form-label">Content</label>
         <input type="text" value="{{old('content')}}" class="form-control" id="exampleInputPassword1" name="content">
         <p class="text-danger"> {{$errors->first('content')}} <p> 
-        
     </div>
+    <select name="category_id">
+        @foreach($categories as $category)
+            <option value="{{$category->id}}">{{$category->name}}</option>  
+        @endforeach
+    </select>
     <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 @endsection

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Book;
 use Illuminate\Http\Request;
+use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
@@ -18,18 +20,24 @@ class BookController extends Controller
     }
 
     function create(){
-        return view("Books.create");
+        $categories = Category::all();
+        return view("Books.create", ["categories" => $categories]);
     }
 
     function store(){
         $book = new Book();
+        // dd(Auth::user());
         // dd(request()->all());
         request()->validate([
             "title" => "required|max:255|min:3",
             "content" => "required|max:255|min:3"
+        ], [
+            "title.required" => "Title is required from OS track",
         ]);
         $book->title = request()->title;
         $book->content = request()->content;
+        $book->category_id = request()->category_id;
+        $book->user_id = Auth::id();
         $book->save();
         // return view("Books.index", ["books" => $books]);
         return redirect("/books");
