@@ -4,8 +4,14 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+
 class AppServiceProvider extends ServiceProvider
 {
+
+    protected $policies = [
+        Book::class => BookPolicy::class, 
+        Category::class => CategoryPolicy::class
+    ];
     /**
      * Register any application services.
      */

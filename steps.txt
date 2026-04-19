@@ -201,5 +201,22 @@ Authorization --> what can do ? -->
                         1- controller --> allows 
                                             denies
                         2- blade --> @can , @cannot 
+___________________________________________________________________________
+2- Policy --> auth --> model :
 
-2- Policy --> auth --> model 
+        1- php artisan   make:policy BookPolicy --model=Book
+
+        2- in delete function 
+                $user->role == "admin"
+        3- in appServiceProvider --> add policies : 
+             protected $policies = [
+                Book::class => BookPolicy::class, 
+                Category::class => CategoryPolicy::class
+            ];
+        4- in controller: 
+            use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+            in class: 
+                use AuthorizesRequests;
+
+            in delete function: 
+                 $this->authorize('delete', $category);

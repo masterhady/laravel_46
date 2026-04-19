@@ -35,7 +35,8 @@ Route::get("/books/create", [BookController::class, "create"])->middleware("auth
 Route::get("/books/edit/{id}", [BookController::class, "edit"]);
 Route::put("/books/{id}", [BookController::class, "update"]);
 Route::post("/books", [BookController::class, "store"])->middleware("auth");
-// Route::delete("/books/{id}", [BookController::class, "store"])
+Route::delete("/books/delete/{id}", [BookController::class, "destroy"])->name("books.destroy");
+
 
 
 Route::get("/books/{id}", [BookController::class, "show"]);

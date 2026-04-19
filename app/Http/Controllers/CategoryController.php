@@ -7,6 +7,8 @@ use App\Models\Category;
 use App\Models\Book;
 use App\Http\Requests\StoreCategoryRequest;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
 
 // use Illuminate\Routing\Controllers\HasMiddleware;
 // use Illuminate\Routing\Controllers\Middleware;
@@ -15,6 +17,7 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    use AuthorizesRequests;
     // public function __construct(){
     //     $this->middleware('auth');
     // }
@@ -91,6 +94,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        // use the policy:
+        $this->authorize('delete', $category);
         $category->delete();
         return redirect()->route('categories.index');
     }

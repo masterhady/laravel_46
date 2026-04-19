@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 use App\Models\Book;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
+
 
 class BookController extends Controller
 {
+    use AuthorizesRequests;
+
     function index(){
         $books = Book::all();
         return view("Books.index", ["books" => $books]);
@@ -25,6 +30,8 @@ class BookController extends Controller
     }
 
     function store(){
+        $this->authorize('create');
+
         $book = new Book();
         // dd(Auth::user());
         // dd(request()->all());
@@ -67,6 +74,16 @@ class BookController extends Controller
         $book->content = request()->content;
         $book->save();
         return redirect("/books");
+    }
+
+    function destroy(Book $book){
+
+        $booh = Book::findOrFail($book->id);
+        $book->delete();
+
+        // $book = Book::findOrFail($);
+        // $book->delete();
+        // return redirect("/books");
     }
 
 

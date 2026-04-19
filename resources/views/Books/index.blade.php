@@ -53,6 +53,19 @@
 
                 <td><a href="/books/{{$value->id}}" class="btn btn-info"> Show </a></td>
                 <td><a href="/books/edit/{{$value->id}}" class="btn btn-warning"> Edit </a></td>
+                <td>
+                 <form action="{{ route('books.destroy', $value->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete this book?');">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-sm btn-outline-danger">Delete</button>
+                            </form>
+                </td>
+                {{-- <form action="">
+                <td><a href="/books/delete/{{$value->id}}" class="btn btn-danger"> Delete </a></td>
+
+                </form> --}}
+
+
             
             </tr>
 
