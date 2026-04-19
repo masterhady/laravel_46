@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\Book;
 use App\Http\Requests\StoreCategoryRequest;
+use Illuminate\Support\Facades\Gate;
 
 // use Illuminate\Routing\Controllers\HasMiddleware;
 // use Illuminate\Routing\Controllers\Middleware;
@@ -33,7 +34,13 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('Categories.create');
+        // allows == check --> can user do this
+        // denies --> can't user do this
+        if(Gate::allows('admin')){
+            return view('Categories.create');
+        }
+        abort(401);
+        // return redirect()->route('categories.index');
     }
 
     /**
@@ -51,12 +58,14 @@ class CategoryController extends Controller
      * Display the specified resource.
      */
     public function show(Category $category)
-    {
-        // dd($category);
-        // $books = Book::where('category_id', $category->id)->get();
-        $books = $category->books; // books 0---> the relation inside the category model
-        // dd($books);
-        return view('Categories.show', ['category' => $category, 'books' => $books]);
+    {   
+        // if(Gate::allows('user') || Gate::allows('author'))
+        if(Gate::allows('accecc-content')){
+            $books = $category->books;
+            return view('Categories.show', ['category' => $category, 'books' => $books]);
+        }
+        abort(401);
+        
     }
 
     /**

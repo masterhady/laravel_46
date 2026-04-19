@@ -24,9 +24,20 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <div class="mb-3 text-end">
-        <a href="{{ route('categories.create') }}" class="btn btn-primary">Create Category</a>
-    </div>
+    {{--  can in blade == allows in controller --}}
+    {{-- @can('The name of the Gate') --}}
+    @can('admin')
+        <div class="mb-3 text-end">
+            <a href="{{ route('categories.create') }}" class="btn btn-primary">Create Category</a>
+        </div>
+    @endcan
+
+    {{-- cannot in blade == denies in controller --}}
+
+    @cannot('admin')
+        <h1>You are not allowed to see this page</h1>
+    @endcannot
+    
 
     @if($categories->isEmpty())
         <p>No categories yet.</p>

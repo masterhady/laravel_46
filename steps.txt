@@ -173,3 +173,33 @@ ________________________________________________________________________________
                  @if($value->image)
                         <img src="{{asset('storage/'.$value->image)}}" alt="" width="100">
                     @endif
+__________________________________________________________________________________________________
+rules --> users --> admin, author, user 
+
+
+Authentaction --> who are you --> login and registration 
+
+
+Authorization --> what can do ? --> 
+
+1- Gate --> provider 
+
+        Steps: 
+                1- php artisan make:migration add_role_to_users_table
+
+                2- create providers: 
+                    php artisan  make:provider  AuthServiceProvider
+
+                3- in file Providers/AuthServiceProvider
+                    in boot function --> define your gates 
+
+                4- need to register the provider --> in bootstrap/app.php 
+                            ->withProviders([
+                                    App\Providers\AuthServiceProvider::class
+                                ])
+                5- use it: 
+                        1- controller --> allows 
+                                            denies
+                        2- blade --> @can , @cannot 
+
+2- Policy --> auth --> model 

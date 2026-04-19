@@ -39,6 +39,11 @@ class BookController extends Controller
         $book->content = request()->content;
         $book->category_id = request()->category_id;
         $book->user_id = Auth::id();
+        // $book->user->role == "admin" 
+            // {
+
+            // } 
+
         $imagePath = null;
 
         if(request()->hasFile('image')){
