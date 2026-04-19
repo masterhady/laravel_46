@@ -24,6 +24,7 @@
             <th>Content</th>
             <th>Category</th>
             <th>Author</th>
+            <th>Image</th>
             <th>Show</th>
             <th>Edit</th>
         </tr>
@@ -43,6 +44,11 @@
                 </td>
                 <td>
                     {{$value->user->name}}
+                </td>
+                <td>
+                    @if($value->image)
+                        <img src="{{asset('storage/'.$value->image)}}" alt="" width="100">
+                    @endif
                 </td>
 
                 <td><a href="/books/{{$value->id}}" class="btn btn-info"> Show </a></td>

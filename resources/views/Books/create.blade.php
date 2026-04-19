@@ -20,7 +20,8 @@
             @endforeach
         </ul>
     </div>
-@endif    <form method="POST" action="/books">
+@endif    
+<form method="POST" action="/books" enctype="multipart/form-data">
         @csrf
     <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Title</label>
@@ -38,6 +39,8 @@
             <option value="{{$category->id}}">{{$category->name}}</option>  
         @endforeach
     </select>
+    <input name="image" type="file">
+
     <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 @endsection

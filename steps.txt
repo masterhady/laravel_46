@@ -146,3 +146,30 @@ class SocialAuthController extends Controller
 __________________________________________________________________________________________________
 
 2- Upload Image --> in laravel 
+
+    1- create migrations file for add image  column: 
+    php artisan make:migration add_image_column_to_books_table --table=books
+
+    2- in the file : 
+            $table->string('image')->nullable();
+
+    3- php artisan storage:link
+
+    4- create folder --> images --> public/storage
+
+    5- in controller: 
+        if(request()->hasFile('image')){
+            $imagePath = request()->file('image')->store('imageBooks', 'public');
+            $book->image = $imagePath;
+        } 
+
+    6- in blade files: 
+            create: 
+                    <form enctype="multipart/form-data"> 
+
+                    <input name="image" type="file">
+
+            index.blade: 
+                 @if($value->image)
+                        <img src="{{asset('storage/'.$value->image)}}" alt="" width="100">
+                    @endif

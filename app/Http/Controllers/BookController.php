@@ -30,7 +30,8 @@ class BookController extends Controller
         // dd(request()->all());
         request()->validate([
             "title" => "required|max:255|min:3",
-            "content" => "required|max:255|min:3"
+            "content" => "required|max:255|min:3",
+            "image" => "required|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
         ], [
             "title.required" => "Title is required from OS track",
         ]);
@@ -38,6 +39,12 @@ class BookController extends Controller
         $book->content = request()->content;
         $book->category_id = request()->category_id;
         $book->user_id = Auth::id();
+        $imagePath = null;
+
+        if(request()->hasFile('image')){
+            $imagePath = request()->file('image')->store('imageBooks', 'public');
+            $book->image = $imagePath;
+        } // 
         $book->save();
         // return view("Books.index", ["books" => $books]);
         return redirect("/books");
