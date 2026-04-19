@@ -69,3 +69,80 @@ Auth -->
 
 composer require laravel/breeze --dev
 php artisan breeze:install
+__________________________________________________________________
+
+1- login using google:
+        1- composer require laravel/socialite 
+        2- go to --> config/service.php:  --> https://laravel.com/docs/13.x/socialite
+                    'google' => [
+                        'client_id' => env('GOOGLE_CLIENT_ID'),
+                        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+                        'redirect' => env('GOOGLE_REDIRECT_URI'),
+                    ]
+
+        3- go to .env :
+                GOOGLE_CLIENT_ID=
+                GOOGLE_CLIENT_SECRET=
+                GOOGLE_REDIRECT_URI=
+
+        4- https://console.cloud.google.com: 
+                1- select project 
+                2- create project 
+                3- from menu --> APIs and service --> library --> and search Google+ API --> make it enable
+                4- from menu --> OAuth Consent Screen --> create --> choose external 
+                5- click Create OAuth client ID
+                6- Authorised redirect URIs -->  add  --> https://localhost:8000/auth/google/cullback   
+
+        5- php artisan make:controller  Auth/SocialAuthController  
+                <?php
+
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Laravel\Socialite\Facades\Socialite;
+use App\Models\User;
+use Auth;
+
+class SocialAuthController extends Controller
+{
+    public function redirectToGoogle(){
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback(){
+        $googleUser = Socialite::driver('google')->user();
+        // dd($user);
+        $user = User::where("email", $googleUser->getEmail())->first();
+        if(!$user){
+            $user = User::create([
+                'name' => $googleUser->getName(),
+                'email' => $googleUser->getEmail(),
+                'google_id' => $googleUser->getId(),
+                'avatar' => $googleUser->getAvatar(),
+                'password' => encrypt('password')
+            ]);
+        }
+        Auth::login($user);
+        return redirect(route('dashboard'));
+    }
+
+
+
+}
+
+        6- in web.php: 
+                use App\Http\Controllers\Auth\SocialAuthController;
+                Route::get('/auth/google', [SocialAuthController::class, 'redirectToGoogle']);
+                Route::get('/auth/google/callback', [SocialAuthController::class, 'handleGoogleCallback']);     
+
+        7- create migration files to save google info :
+            php artisan make:migration add_google_columns_to_users_table
+                      $table->string('google_id')->nullable();
+                        $table->string('avatar')->nullable();
+
+        8- add the new columns into fillabla user model: 
+            #[Fillable(['name', 'email', 'password', 'avatar', 'google_id'])]
+__________________________________________________________________________________________________
+
+2- Upload Image --> in laravel 

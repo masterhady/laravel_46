@@ -35,11 +35,12 @@
                 {{-- <td>{{ $value["title"] }}</td>  --}}
                 <td>{{ $value->title }}</td> 
                 <td>{{ $value->content }}</td> 
-                <td>
+                
                 <td>
                 <a href={{ route('categories.show', $value->category->id) }}> 
                     {{ $value->category->name }}
                 </a>
+                </td>
                 <td>
                     {{$value->user->name}}
                 </td>

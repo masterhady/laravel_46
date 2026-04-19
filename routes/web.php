@@ -42,3 +42,7 @@ Route::get("/books/{id}", [BookController::class, "show"]);
 
 Route::resource("categories", CategoryController::class)->middleware("auth");
 
+
+use App\Http\Controllers\Auth\SocialAuthController;
+Route::get('/auth/google', [SocialAuthController::class, 'redirectToGoogle']);
+Route::get('/auth/google/callback', [SocialAuthController::class, 'handleGoogleCallback']);
