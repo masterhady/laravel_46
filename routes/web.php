@@ -41,7 +41,7 @@ Route::delete("/books/delete/{id}", [BookController::class, "destroy"])->name("b
 
 Route::get("/books/{id}", [BookController::class, "show"]);
 
-Route::resource("categories", CategoryController::class)->middleware("auth");
+Route::resource("categories", CategoryController::class)->middleware("auth")->except([ "create"]);
 
 
 use App\Http\Controllers\Auth\SocialAuthController;
